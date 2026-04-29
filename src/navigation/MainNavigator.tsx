@@ -14,7 +14,9 @@ export const MainNavigator = () => {
              }} name="Home" 
              component={HomeScreen} />
             <RootStack.Screen options={{ 
-                headerShown: false
+                headerShown: false,
+                // headerBackVisible: true,
+                // headerTitle: 'Message'
              }} name="Chat" component={ChatScreen} />
             <RootStack.Screen name="Settings" component={SettingsScreen} />
         </RootStack.Navigator>

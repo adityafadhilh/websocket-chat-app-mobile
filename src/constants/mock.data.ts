@@ -112,7 +112,7 @@ export const CHATS: Chat[] = [
         updatedAt: new Date("2024-05-10T11:00:00Z"),
         history: [
             { _id: "6670000000000000000000ec", from: CURRENT_USER._id, to: "6650000000000000000000a5", message: "Let's grab lunch sometime.", sentTime: new Date("2024-05-10T10:58:00Z") },
-            { _id: "6670000000000000000000ed", from: "6650000000000000000000a5", to: CURRENT_USER._id, message: "That sounds great 👍", sentTime: new Date("2024-05-10T11:00:00Z") },
+            { _id: "6670000000000000000000ed", from: "6650000000000000000000a5", to: CURRENT_USER._id, message: "That sounds great 👍aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", sentTime: new Date("2024-05-10T11:00:00Z") },
         ],
     },
 ];

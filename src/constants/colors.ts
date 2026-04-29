@@ -1,4 +1,4 @@
-const COLORS = {
+export const COLORS = {
   background: '#1F1D1D',
   sidebar: '#1C1C1C',
   sidebarItemActive: '#2C2C2C',
@@ -14,5 +14,3 @@ const COLORS = {
   inputPlaceholder: '#A0A0A0',
   sendIcon: '#1C1C1C',
 };
-
-export default COLORS;

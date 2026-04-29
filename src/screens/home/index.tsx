@@ -12,7 +12,7 @@ export const HomeScreen = () => {
             backgroundColor: '#1F1D1D',
             flex: 1
         }}>
-            {CHATS.map((chat) => {
+            {CHATS.filter((chat) => chat.members.includes(CURRENT_USER._id)).map((chat) => {
                 console.log(chat);
                 let user = USERS.find((it) => it._id == chat.members[1]);
                 console.log(user)
@@ -26,7 +26,7 @@ export const HomeScreen = () => {
                             marginBottom: 20
                         }}
                         key={user?._id}
-                        onPress={() => navigation.navigate('Chat', { userId: CURRENT_USER._id, recipientId: user?._id || '' })}
+                        onPress={() => navigation.navigate('Chat', { chatId: chat._id || '' })}
                     >
                         <Image style={{
                             width: 50,
