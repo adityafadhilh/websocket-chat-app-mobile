@@ -4,7 +4,8 @@ import { Text, PlatformPressable } from '@react-navigation/elements';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeScreen } from '../screens/home';
 import { SettingsScreen } from '../screens/settings/SettingsScreen';
-import { Home, Icon, Settings } from 'lucide-react-native';
+import { Home, Icon, Settings, Users } from 'lucide-react-native';
+import { FriendsScreen } from '../screens/friends/FriendsScreen';
 
 function MyTabBar({ state, descriptors, navigation }) {
     const { colors } = useTheme();
@@ -85,16 +86,42 @@ export function TabNavigator() {
         <Tab.Navigator tabBar={(props: any) => <MyTabBar {...props} />}>
             <Tab.Screen
                 options={{
-                    headerShown: false,
+                    headerShown: true,
                     title: 'Home',
+                    headerStyle: {
+                        backgroundColor: '#1F1D1D',
+                    },
+                    headerTitleStyle: {
+                        color: 'white'
+                    },
                     // animation: 'shift',
                     tabBarIcon: ({ color }) => <Home size={28} color={color} />,
                 }}
                 name="Home" component={HomeScreen} />
             <Tab.Screen
                 options={{
-                    headerShown: false,
+                    headerShown: true,
+                    title: 'Friends',
+                    headerStyle: {
+                        backgroundColor: '#1F1D1D',
+                    },
+                    headerTitleStyle: {
+                        color: 'white'
+                    },
+                    // animation: 'shift',
+                    tabBarIcon: ({ color }) => <Users size={28} color={color} />,
+                }}
+                name="Friends" component={FriendsScreen} />
+            <Tab.Screen
+                options={{
+                    headerShown: true,
                     title: 'Settings',
+                    headerStyle: {
+                        backgroundColor: '#1F1D1D',
+                    },
+                    headerTitleStyle: {
+                        color: 'white'
+                    },
                     // animation: 'shift',
                     tabBarIcon: ({ color }) => <Settings size={28} color={color} />,
                 }}
