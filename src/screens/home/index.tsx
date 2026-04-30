@@ -9,7 +9,7 @@ export const HomeScreen = () => {
     return (
         <View style={{
             paddingHorizontal: 25,
-            paddingTop: 30,
+            paddingVertical: 15,
             backgroundColor: '#1F1D1D',
             flex: 1
         }}>

@@ -7,7 +7,7 @@ export const FriendsScreen = () => {
             flex: 1,
             backgroundColor: '#1F1D1D',
             paddingHorizontal: 25,
-            paddingVertical: 30
+            paddingVertical: 15
         }}>
             {USERS.map((user) => {
                 return (

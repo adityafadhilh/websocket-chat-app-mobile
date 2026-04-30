@@ -11,7 +11,7 @@ export const SettingsScreen = () => {
             flex: 1,
             backgroundColor: '#1F1D1D',
             paddingHorizontal: 25,
-            paddingVertical: 30
+            paddingVertical: 15
         }}>
             {/* <Text
                 style={{
