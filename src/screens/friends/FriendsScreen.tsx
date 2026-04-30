@@ -1,5 +1,6 @@
 import { Image, Text, TouchableOpacity, View } from "react-native"
 import { CURRENT_USER, USERS } from "../../constants/mock.data"
+import { FriendItemRow } from "../../components/FriendItemRow"
 
 export const FriendsScreen = () => {
     return (
@@ -9,37 +10,12 @@ export const FriendsScreen = () => {
             paddingHorizontal: 25,
             paddingVertical: 15
         }}>
-            {USERS.filter((user) =>  user._id !== CURRENT_USER._id).map((user) => {
+            {USERS.filter((user) => user._id !== CURRENT_USER._id).map((user) => {
                 return (
-                    <TouchableOpacity
+                    <FriendItemRow
                         key={user._id}
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            gap: 20,
-                            alignItems: 'center',
-                            marginBottom: 20,
-                            // borderBottomWidth: 1,
-                            // borderBottomColor: 'gray',
-                            // padding: 20,
-                            // borderStyle: 'dotted'
-                        }}
-                    >
-                        <Image style={{
-                            width: 50,
-                            height: 50,
-                            backgroundColor: 'white',
-                            borderRadius: 25,
-                        }} resizeMode="cover" source={user?.avatar ? { uri: user.avatar.replace('/svg', '/png') } : undefined} />
-                        <View style={{
-                            flex: 1,
-                        }}>
-                            <Text style={{
-                                color: 'white',
-                                fontSize: 18
-                            }}>{user?.name}</Text>
-                        </View>
-                    </TouchableOpacity>
+                        user={user}
+                        onPress={() => { }} />
                 )
             })}
         </View>
