@@ -1,10 +1,12 @@
-import { FlatList, Image, Text, TextInput, View } from "react-native"
+import { FlatList, Image, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { CHATS, CURRENT_USER, USERS } from "../../constants/mock.data";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { User } from "../../types/user.type";
 import { Chat, HistoryEntry } from "../../types/chat.type";
 import moment from "moment";
+import { ChevronLeft, Send } from "lucide-react-native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export const ChatScreen = ({ route }: any) => {
     const {
@@ -14,6 +16,7 @@ export const ChatScreen = ({ route }: any) => {
     // const [user, setUser] = useState<User>();
     // const [recipient, setRecipient] = useState<User>();
     const [chat, setChat] = useState<Chat>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     useEffect(() => {
         console.log('init');
@@ -36,19 +39,19 @@ export const ChatScreen = ({ route }: any) => {
 
         if (history.from == CURRENT_USER._id) {
             return (
-                <View style={{ 
+                <View style={{
                     marginBottom: 15
-                 }}>
+                }}>
                     <View style={{
                         display: 'flex',
                         flexDirection: 'row',
                         alignItems: 'center',
                         alignSelf: 'flex-end'
                     }}>
-                        <Text style={{ 
+                        <Text style={{
                             marginRight: 10,
                             fontSize: 12,
-                         }}>{moment(history.sentTime).format('HH:MM A')}</Text>
+                        }}>{moment(history.sentTime).format('HH:MM A')}</Text>
                         <View style={{
                             backgroundColor: '#1F1D1D',
                             borderRadius: 25,
@@ -76,9 +79,9 @@ export const ChatScreen = ({ route }: any) => {
             )
         } else {
             return (
-                <View style={{ 
+                <View style={{
                     marginBottom: 15
-                 }}>
+                }}>
                     <View style={{
                         display: 'flex',
                         flexDirection: 'row',
@@ -106,9 +109,9 @@ export const ChatScreen = ({ route }: any) => {
                                 {history.message}
                             </Text>
                         </View>
-                        <Text style={{ 
+                        <Text style={{
                             fontSize: 12
-                         }}>{moment(history.sentTime).format('HH:MM A')}</Text>
+                        }}>{moment(history.sentTime).format('HH:MM A')}</Text>
                     </View>
 
                 </View>
@@ -126,8 +129,16 @@ export const ChatScreen = ({ route }: any) => {
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'flex-end',
-                gap: 10
+                gap: 10,
+                alignItems: 'center'
             }}>
+                <TouchableOpacity style={{ 
+                    flex: 1,
+                 }}
+                 onPress={() => navigation.goBack()}
+                 >
+                    <ChevronLeft />
+                </TouchableOpacity>
                 {chat?.members.map((member) => {
                     let user = USERS.find((it) => it._id == member);
                     return (
@@ -183,9 +194,9 @@ export const ChatScreen = ({ route }: any) => {
 
 
             </View>
-            <View style={{ 
+            <View style={{
                 marginTop: 20
-             }}>
+            }}>
                 <FlatList
                     data={chat?.history}
                     renderItem={(it) => _renderChatBubble(it.item)}
@@ -201,9 +212,15 @@ export const ChatScreen = ({ route }: any) => {
                 borderColor: 'gray',
                 paddingHorizontal: 15,
                 paddingVertical: 5,
-                borderWidth: 1
+                borderWidth: 1,
+                flexDirection: 'row',
+                alignItems: 'center',
             }}>
-                <TextInput placeholder="Type your message here" />
+                <TextInput style={{ flex: 1 }} placeholder="Type your message here" />
+                <TouchableOpacity>
+                    <Send size={24} />
+                </TouchableOpacity>
+
             </View>
         </View>
     )

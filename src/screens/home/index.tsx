@@ -8,7 +8,8 @@ export const HomeScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     return (
         <View style={{
-            padding: 25,
+            paddingHorizontal: 25,
+            paddingTop: 30,
             backgroundColor: '#1F1D1D',
             flex: 1
         }}>

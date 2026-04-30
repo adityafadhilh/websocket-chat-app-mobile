@@ -1,5 +1,5 @@
 type RootStackParamList = {
-    Home: undefined;
+    Main: undefined;
     Chat: {chatId: string};
     Settings: undefined
 };
