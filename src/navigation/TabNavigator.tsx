@@ -4,7 +4,7 @@ import { Text, PlatformPressable } from '@react-navigation/elements';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeScreen } from '../screens/home';
 import { SettingsScreen } from '../screens/settings/SettingsScreen';
-import { Home, Icon, Settings, Users } from 'lucide-react-native';
+import { Home, Icon, MessageCircle, Settings, Users } from 'lucide-react-native';
 import { FriendsScreen } from '../screens/friends/FriendsScreen';
 
 function MyTabBar({ state, descriptors, navigation }) {
@@ -87,7 +87,7 @@ export function TabNavigator() {
             <Tab.Screen
                 options={{
                     headerShown: true,
-                    title: 'Home',
+                    title: 'Messages',
                     headerStyle: {
                         backgroundColor: '#1F1D1D',
                     },
@@ -95,9 +95,9 @@ export function TabNavigator() {
                         color: 'white'
                     },
                     // animation: 'shift',
-                    tabBarIcon: ({ color }) => <Home size={28} color={color} />,
+                    tabBarIcon: ({ color }) => <MessageCircle size={28} color={color} />,
                 }}
-                name="Home" component={HomeScreen} />
+                name="Messages" component={HomeScreen} />
             <Tab.Screen
                 options={{
                     headerShown: true,

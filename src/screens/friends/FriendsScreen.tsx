@@ -1,5 +1,5 @@
 import { Image, Text, TouchableOpacity, View } from "react-native"
-import { USERS } from "../../constants/mock.data"
+import { CURRENT_USER, USERS } from "../../constants/mock.data"
 
 export const FriendsScreen = () => {
     return (
@@ -9,7 +9,7 @@ export const FriendsScreen = () => {
             paddingHorizontal: 25,
             paddingVertical: 15
         }}>
-            {USERS.map((user) => {
+            {USERS.filter((user) =>  user._id !== CURRENT_USER._id).map((user) => {
                 return (
                     <TouchableOpacity
                         key={user._id}

@@ -53,7 +53,7 @@ export const USERS: User[] = [
     },
     {
         _id: "6650000000000000000000aa",
-        name: "Fadhil",
+        name: "Aditya Fadhil",
         avatar: "https://api.dicebear.com/7.x/adventurer/svg?seed=me&backgroundColor=b6e3f4",
         online: true,
         createdAt: new Date("2024-01-01T08:00:00Z"),
