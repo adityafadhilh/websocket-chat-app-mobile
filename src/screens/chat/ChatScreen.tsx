@@ -9,6 +9,7 @@ import { ChevronLeft, Send } from "lucide-react-native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { BubbleChat } from "../../components/BubbleChat";
 import { MemberItem } from "../../components/MemberItem";
+import { useChats } from "../../hooks/useChats";
 
 export const ChatScreen = ({ route }: any) => {
     const {
@@ -17,8 +18,12 @@ export const ChatScreen = ({ route }: any) => {
 
     // const [user, setUser] = useState<User>();
     // const [recipient, setRecipient] = useState<User>();
-    const [chat, setChat] = useState<Chat>();
+    // const [chat, setChat] = useState<Chat>();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const {
+        chat,
+        getChatById
+    } = useChats();
 
     useEffect(() => {
         console.log('init');
@@ -31,7 +36,9 @@ export const ChatScreen = ({ route }: any) => {
         //     setRecipient(USERS.find((it) => it._id == recipientId))
         // }
         if (chatId) {
-            setChat(CHATS.find((it) => it._id == chatId));
+            // setChat(CHATS.find((it) => it._id == chatId));
+            console.log('chatId: ' + chatId);
+            getChatById(chatId);
         }
     }, [])
 
