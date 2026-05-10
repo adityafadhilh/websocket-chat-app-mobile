@@ -12,6 +12,7 @@ export const useChats = () => {
             const res = await apiRequest.get('/chats/user/' + CURRENT_USER._id);
             console.log(res);
             if (res && res.data && res.data.chats) {
+                console.log('chats: ' + JSON.stringify(chats));
                 setChats(res.data.chats);
             }
         } catch (error) {
@@ -21,6 +22,7 @@ export const useChats = () => {
 
     const getChatById = async (chatId: string) => {
         try {
+            console.log('chatById');
             const res = await apiRequest.get('/chats/' + chatId);
             console.log(res);
              if (res && res.data && res.data.chat) {

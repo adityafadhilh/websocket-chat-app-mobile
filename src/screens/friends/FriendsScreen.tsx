@@ -6,13 +6,15 @@ import { useEffect } from "react"
 
 export const FriendsScreen = () => {
     const {
-        users,
-        isLoading,
-        getUsers
+        // users,
+        friends,
+        // isLoading,
+        getFriends
     } = useUsers();
 
     useEffect(() => {
-        getUsers();
+        console.log('Friends Screen');
+        getFriends();
     }, [])
 
     return (
@@ -22,7 +24,7 @@ export const FriendsScreen = () => {
             paddingHorizontal: 25,
             paddingVertical: 15
         }}>
-            {users.filter((user) => user._id !== CURRENT_USER._id).map((user) => {
+            {friends.filter((user) => user._id !== CURRENT_USER._id).map((user) => {
                 return (
                     <FriendItemRow
                         key={user._id}

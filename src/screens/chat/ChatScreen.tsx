@@ -10,6 +10,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { BubbleChat } from "../../components/BubbleChat";
 import { MemberItem } from "../../components/MemberItem";
 import { useChats } from "../../hooks/useChats";
+import { useUsers } from "../../hooks/useUsers";
 
 export const ChatScreen = ({ route }: any) => {
     const {
@@ -24,6 +25,11 @@ export const ChatScreen = ({ route }: any) => {
         chat,
         getChatById
     } = useChats();
+    const {
+        users,
+        getFriends,
+        getUsers
+    } = useUsers();
 
     useEffect(() => {
         console.log('init');
@@ -39,6 +45,7 @@ export const ChatScreen = ({ route }: any) => {
             // setChat(CHATS.find((it) => it._id == chatId));
             console.log('chatId: ' + chatId);
             getChatById(chatId);
+            getUsers()
         }
     }, [])
 
@@ -63,7 +70,7 @@ export const ChatScreen = ({ route }: any) => {
                     <ChevronLeft />
                 </TouchableOpacity>
                 {chat?.members.map((member) => {
-                    let user = USERS.find((it) => it._id == member);
+                    let user = users.find((it) => it._id == member);
                     return <MemberItem key={user?._id} user={user} />
                 })}
             </View>
@@ -73,6 +80,7 @@ export const ChatScreen = ({ route }: any) => {
                 <FlatList
                     data={chat?.history}
                     renderItem={(it) => <BubbleChat key={it.item._id} history={it.item} />}
+                    keyExtractor={(it) => it._id.toString()}
                 />
             </View>
             <View style={{

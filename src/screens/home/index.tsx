@@ -5,14 +5,18 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { ChatItemRow } from "../../components/ChatItemRow"
 import { useChats } from "../../hooks/useChats"
 import { useEffect } from "react"
+import { useUsers } from "../../hooks/useUsers"
 
 export const HomeScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const {getChats, chats} = useChats();
+    const {friends, getFriends} = useUsers();
 
     useEffect(() => {
+        getFriends();
         getChats();
     }, []);
+
     return (
         <View style={{
             paddingHorizontal: 25,
@@ -22,7 +26,7 @@ export const HomeScreen = () => {
         }}>
             {chats.map((chat) => {
                 console.log(chat);
-                let user = USERS.find((it) => CURRENT_USER._id == chat.members[0] ? it._id == chat.members[1] : it._id == chat.members[0]);
+                let user = friends.find((it) => CURRENT_USER._id == chat.members[0] ? it._id == chat.members[1] : it._id == chat.members[0]);
                 console.log(user)
                 return (
                     <ChatItemRow

@@ -5,4 +5,6 @@ export type User = {
     updatedAt: Date;
     avatar: string;
     online?: boolean;
-}
+    friends_id: string[];
+    friends_details?: User[]
+};
