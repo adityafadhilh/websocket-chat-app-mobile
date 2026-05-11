@@ -6,11 +6,13 @@ import { ChatItemRow } from "../../components/ChatItemRow"
 import { useChats } from "../../hooks/useChats"
 import { useEffect } from "react"
 import { useUsers } from "../../hooks/useUsers"
+import { useCurrentUser } from "../../hooks/useCurrentUser"
 
 export const HomeScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const {getChats, chats} = useChats();
     const {friends, getFriends} = useUsers();
+    const {currentUser} = useCurrentUser();
 
     useEffect(() => {
         getFriends();
@@ -26,7 +28,7 @@ export const HomeScreen = () => {
         }}>
             {chats.map((chat) => {
                 console.log(chat);
-                let user = friends.find((it) => CURRENT_USER._id == chat.members[0] ? it._id == chat.members[1] : it._id == chat.members[0]);
+                let user = friends.find((it) => currentUser._id == chat.members[0] ? it._id == chat.members[1] : it._id == chat.members[0]);
                 console.log(user)
                 return (
                     <ChatItemRow

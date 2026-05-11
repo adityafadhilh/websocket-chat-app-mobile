@@ -1,23 +1,6 @@
 import { Chat } from "../types/chat.type";
 import { User } from "../types/user.type";
 
-// export const CURRENT_USER: User = {
-//     _id: "6650000000000000000000aa",
-//     name: "Aditya Fadhil",
-//     avatar: "https://api.dicebear.com/7.x/adventurer/svg?seed=me&backgroundColor=b6e3f4",
-//     online: true,
-//     createdAt: new Date("2024-01-01T08:00:00Z"),
-//     updatedAt: new Date("2024-01-01T08:00:00Z"),
-// };
-// export const CURRENT_USER: User = {
-//     _id: "u001",
-//     name: "Ahmad Fauzi",
-//     avatar: "https://i.pravatar.cc/150?u=u001",
-//     online: true,
-//     createdAt: new Date("2024-01-01T08:00:00Z"),
-//     updatedAt: new Date("2024-01-01T08:00:00Z"),
-// };
-
 export const CURRENT_USER: User = {
     _id: "663e1a2b4f1a2c001d8e9001",
     name: "Rian Wijaya",
@@ -32,57 +15,6 @@ export const CURRENT_USER: User = {
     "createdAt": new Date("2024-01-01T08:00:00Z"),
     "updatedAt": new Date("2024-01-01T08:00:00Z")
 };
-
-// export const USERS: User[] = [
-//     {
-//         _id: "6650000000000000000000a1",
-//         name: "Nick",
-//         avatar: "https://api.dicebear.com/7.x/adventurer/svg?seed=nick&backgroundColor=c0aede",
-//         online: true,
-//         createdAt: new Date("2024-01-02T09:00:00Z"),
-//         updatedAt: new Date("2024-05-10T14:08:00Z"),
-//     },
-//     {
-//         _id: "6650000000000000000000a2",
-//         name: "Jack",
-//         avatar: "https://api.dicebear.com/7.x/adventurer/svg?seed=jack&backgroundColor=ffdfbf",
-//         online: false,
-//         createdAt: new Date("2024-01-03T10:00:00Z"),
-//         updatedAt: new Date("2024-05-10T15:10:00Z"),
-//     },
-//     {
-//         _id: "6650000000000000000000a3",
-//         name: "Richard",
-//         avatar: "https://api.dicebear.com/7.x/adventurer/svg?seed=richard&backgroundColor=d1f4d9",
-//         online: true,
-//         createdAt: new Date("2024-01-04T11:00:00Z"),
-//         updatedAt: new Date("2024-05-10T16:00:00Z"),
-//     },
-//     {
-//         _id: "6650000000000000000000a4",
-//         name: "Sarah",
-//         avatar: "https://api.dicebear.com/7.x/adventurer/svg?seed=sarah&backgroundColor=ffd5dc",
-//         online: false,
-//         createdAt: new Date("2024-01-05T12:00:00Z"),
-//         updatedAt: new Date("2024-05-10T12:30:00Z"),
-//     },
-//     {
-//         _id: "6650000000000000000000a5",
-//         name: "Mike",
-//         avatar: "https://api.dicebear.com/7.x/adventurer/svg?seed=mike&backgroundColor=b6e3f4",
-//         online: true,
-//         createdAt: new Date("2024-01-06T13:00:00Z"),
-//         updatedAt: new Date("2024-05-10T11:00:00Z"),
-//     },
-//     {
-//         _id: "6650000000000000000000aa",
-//         name: "Aditya Fadhil",
-//         avatar: "https://api.dicebear.com/7.x/adventurer/svg?seed=me&backgroundColor=b6e3f4",
-//         online: true,
-//         createdAt: new Date("2024-01-01T08:00:00Z"),
-//         updatedAt: new Date("2024-01-01T08:00:00Z"),
-//     }
-// ];
 
 export const CHATS: Chat[] = [
     {

@@ -1,10 +1,6 @@
 import { FlatList, Image, Text, TextInput, TouchableOpacity, View } from "react-native"
-import { CHATS, CURRENT_USER, USERS } from "../../constants/mock.data";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { User } from "../../types/user.type";
-import { Chat, HistoryEntry } from "../../types/chat.type";
-import moment from "moment";
 import { ChevronLeft, Send } from "lucide-react-native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { BubbleChat } from "../../components/BubbleChat";
@@ -17,9 +13,6 @@ export const ChatScreen = ({ route }: any) => {
         chatId
     } = route.params;
 
-    // const [user, setUser] = useState<User>();
-    // const [recipient, setRecipient] = useState<User>();
-    // const [chat, setChat] = useState<Chat>();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const {
         chat,
@@ -33,16 +26,7 @@ export const ChatScreen = ({ route }: any) => {
 
     useEffect(() => {
         console.log('init');
-        // if (userId) {
-        //     console.log('userId: ' + userId);
-        //     setUser(USERS.find((it) => it._id == userId))
-        // }
-        // if (recipientId) {
-        //     console.log('recipientId: ' + recipientId);
-        //     setRecipient(USERS.find((it) => it._id == recipientId))
-        // }
         if (chatId) {
-            // setChat(CHATS.find((it) => it._id == chatId));
             console.log('chatId: ' + chatId);
             getChatById(chatId);
             getUsers()

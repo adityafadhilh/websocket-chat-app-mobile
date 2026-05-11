@@ -1,14 +1,15 @@
 import moment from "moment"
 import { Text, View } from "react-native"
 import { HistoryEntry } from "../types/chat.type"
-import { CURRENT_USER } from "../constants/mock.data";
+import { useCurrentUser } from "../hooks/useCurrentUser";
 
 type BubbleChatProps = {
     history: HistoryEntry
 };
 
 export const BubbleChat = (props: BubbleChatProps) => {
-    if (props.history.from == CURRENT_USER._id) {
+    const { currentUser } =  useCurrentUser();
+    if (props.history.from == currentUser._id) {
         return (
             <View style={{
                 marginBottom: 15
