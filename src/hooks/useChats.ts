@@ -2,14 +2,16 @@ import { useState } from "react";
 import { apiRequest } from "../api/apiRequest";
 import { CURRENT_USER } from "../constants/mock.data";
 import { Chat } from "../types/chat.type";
+import { useCurrentUser } from "./useCurrentUser";
 
 export const useChats = () => {
     const [chat, setChat] = useState<Chat>();
     const [chats, setChats] = useState<Chat[]>([]);
+    const {currentUser} = useCurrentUser()
 
     const getChats = async () => {
         try {
-            const res = await apiRequest.get('/chats/user/' + CURRENT_USER._id);
+            const res = await apiRequest.get('/chats/user/' + currentUser._id);
             console.log(res);
             if (res && res.data && res.data.chats) {
                 console.log('chats: ' + JSON.stringify(chats));

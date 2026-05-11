@@ -1,5 +1,4 @@
 import { Image, Text, TouchableOpacity, View } from "react-native"
-import { CHATS, CURRENT_USER, USERS } from "../../constants/mock.data"
 import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { ChatItemRow } from "../../components/ChatItemRow"
@@ -10,14 +9,20 @@ import { useCurrentUser } from "../../hooks/useCurrentUser"
 
 export const HomeScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const {getChats, chats} = useChats();
-    const {friends, getFriends} = useUsers();
-    const {currentUser} = useCurrentUser();
+    const { getChats, chats } = useChats();
+    const { users, friends, getFriends, getUsers } = useUsers();
+    const { currentUser } = useCurrentUser();
 
     useEffect(() => {
         getFriends();
         getChats();
+        getUsers()
     }, []);
+
+    useEffect(() => {
+        getFriends();
+        getChats();
+    }, [currentUser._id])
 
     return (
         <View style={{
@@ -26,9 +31,17 @@ export const HomeScreen = () => {
             backgroundColor: '#1F1D1D',
             flex: 1
         }}>
-            {chats.map((chat) => {
-                console.log(chat);
-                let user = friends.find((it) => currentUser._id == chat.members[0] ? it._id == chat.members[1] : it._id == chat.members[0]);
+            {chats.map((chat, index) => {
+                console.log('index: ' + index + '=====> ' + JSON.stringify(chat));
+                let user = users.find((it) => {
+                    console.log('curr: ' + JSON.stringify(currentUser));
+                    if (currentUser._id == chat.members[0]) {
+                        return it._id == chat.members[1]
+                    } else if (currentUser._id == chat.members[1]) {
+                        console.log('here')
+                        return it._id == chat.members[0]
+                    }
+                })
                 console.log(user)
                 return (
                     <ChatItemRow
