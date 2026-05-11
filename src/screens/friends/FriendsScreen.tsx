@@ -3,6 +3,7 @@ import { CURRENT_USER, USERS } from "../../constants/mock.data"
 import { FriendItemRow } from "../../components/FriendItemRow"
 import { useUsers } from "../../hooks/useUsers"
 import { useEffect } from "react"
+import { useCurrentUser } from "../../hooks/useCurrentUser"
 
 export const FriendsScreen = () => {
     const {
@@ -11,6 +12,8 @@ export const FriendsScreen = () => {
         // isLoading,
         getFriends
     } = useUsers();
+
+    const {currentUser} = useCurrentUser();
 
     useEffect(() => {
         console.log('Friends Screen');
@@ -24,7 +27,7 @@ export const FriendsScreen = () => {
             paddingHorizontal: 25,
             paddingVertical: 15
         }}>
-            {friends.filter((user) => user._id !== CURRENT_USER._id).map((user) => {
+            {friends.filter((user) => user._id !== currentUser._id).map((user) => {
                 return (
                     <FriendItemRow
                         key={user._id}

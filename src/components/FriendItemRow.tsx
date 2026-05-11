@@ -3,7 +3,8 @@ import { User } from "../types/user.type"
 
 type FriendProps = {
     user: User;
-    onPress: () => void
+    onPress: () => void;
+    textColor?: string
 }
 
 export const FriendItemRow = (props: FriendProps) => {
@@ -29,7 +30,7 @@ export const FriendItemRow = (props: FriendProps) => {
                 flex: 1,
             }}>
                 <Text style={{
-                    color: 'white',
+                    color: props.textColor || 'white',
                     fontSize: 18
                 }}>{props.user?.name}</Text>
             </View>
