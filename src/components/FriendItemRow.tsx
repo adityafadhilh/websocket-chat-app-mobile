@@ -4,7 +4,7 @@ import { User } from "../types/user.type"
 type FriendProps = {
     user: User;
     onPress: () => void;
-    textColor?: string
+    textColor?: string;
 }
 
 export const FriendItemRow = (props: FriendProps) => {
