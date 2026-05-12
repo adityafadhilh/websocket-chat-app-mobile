@@ -1,13 +1,14 @@
 import { Image, Text, TouchableOpacity, View } from "react-native"
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation, useRoute } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { ChatItemRow } from "../../components/ChatItemRow"
 import { useChats } from "../../hooks/useChats"
 import { useEffect } from "react"
 import { useUsers } from "../../hooks/useUsers"
 import { useCurrentUser } from "../../hooks/useCurrentUser"
+import { RootStackParamList } from "../../navigation/navigation.type"
 
-export const HomeScreen = () => {
+export const HomeScreen = ({ route }: any) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { getChats, chats } = useChats();
     const { users, friends, getFriends, getUsers } = useUsers();
@@ -22,7 +23,13 @@ export const HomeScreen = () => {
     useEffect(() => {
         getFriends();
         getChats();
-    }, [currentUser._id])
+    }, [currentUser._id]);
+
+    useEffect(() => {
+        if (route?.params?.chatId) {
+            getChats();
+        }
+    }, [route?.params?.chatId])
 
     return (
         <View style={{

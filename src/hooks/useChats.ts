@@ -7,7 +7,7 @@ import { useCurrentUser } from "./useCurrentUser";
 export const useChats = () => {
     const [chat, setChat] = useState<Chat>();
     const [chats, setChats] = useState<Chat[]>([]);
-    const {currentUser} = useCurrentUser()
+    const {currentUser} = useCurrentUser();
 
     const getChats = async () => {
         try {

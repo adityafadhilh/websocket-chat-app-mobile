@@ -3,6 +3,7 @@ import { HomeScreen } from "../screens/home";
 import { ChatScreen } from "../screens/chat/ChatScreen";
 import { SettingsScreen } from "../screens/settings/SettingsScreen";
 import { TabNavigator } from "./TabNavigator";
+import { RootStackParamList } from "./navigation.type";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -11,9 +12,11 @@ export const MainNavigator = () => {
         <RootStack.Navigator initialRouteName="Main">
             <RootStack.Screen
                 options={{
-                    headerShown: false
+                    headerShown: false,
+                    animationTypeForReplace: 'pop'
                 }} name="Main"
-                component={TabNavigator} />
+                component={TabNavigator}
+            />
             <RootStack.Screen options={{
                 headerShown: false,
                 // headerBackVisible: true,
