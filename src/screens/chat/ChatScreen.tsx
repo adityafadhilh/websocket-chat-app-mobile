@@ -1,22 +1,33 @@
 import { FlatList, Image, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { useNavigation } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, Send } from "lucide-react-native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { BubbleChat } from "../../components/BubbleChat";
 import { MemberItem } from "../../components/MemberItem";
 import { useChats } from "../../hooks/useChats";
 import { useUsers } from "../../hooks/useUsers";
+import { socket } from "../../helpers/socket";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import { HistoryEntry } from "../../types/chat.type";
+import { RootStackParamList } from "../../navigation/navigation.type";
+
 
 export const ChatScreen = ({ route }: any) => {
     const {
         chatId
     } = route.params;
 
+    const {
+        currentUser
+    } = useCurrentUser();
+
+    const [inputMsg, setInputMsg] = useState<string>();
+
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const {
         chat,
-        getChatById
+        getChatById,
     } = useChats();
     const {
         users,
@@ -24,14 +35,63 @@ export const ChatScreen = ({ route }: any) => {
         getUsers
     } = useUsers();
 
+    const [historyMsg, setHistoryMsg] = useState<HistoryEntry[]>([]);
+    const flatlistRef = useRef<FlatList<HistoryEntry> | null>(null);
+
+    const handleSocket = () => {
+        console.log('handleSocket');
+        console.log(chat?.members);
+        if (chat?.members) {
+            socket.io.opts.query = {
+                members: chat?.members
+            };
+
+            socket.connect();
+        }
+    };
+
+    const handleSendMessage = () => {
+        const newHistory = [...(historyMsg ?? []), {
+            from: currentUser?._id,
+            to: chat?.members.find((member) => member !== currentUser._id),
+            message: inputMsg,
+            sentTime: new Date()
+        }];
+        socket.emit('chat message', newHistory);
+        setInputMsg('');
+    };
+
     useEffect(() => {
         console.log('init');
+
         if (chatId) {
             console.log('chatId: ' + chatId);
             getChatById(chatId);
             getUsers()
         }
-    }, [])
+
+        socket.on("chat message", (data) => {
+            console.log('on received');
+            console.log('received history: ' + JSON.stringify(data));
+            setHistoryMsg(data);
+        });
+
+        return () => {
+            socket.off('chat message');
+            socket.disconnect();
+        };
+    }, []);
+
+    useEffect(() => {
+        if (chat) {
+            setHistoryMsg(chat?.history);
+            handleSocket();
+        }
+    }, [chat]);
+
+    useEffect(() => {
+        flatlistRef.current?.scrollToEnd({ animated: true});
+    }, [historyMsg])
 
     return (
         <View style={{
@@ -49,7 +109,13 @@ export const ChatScreen = ({ route }: any) => {
                 <TouchableOpacity style={{
                     flex: 1,
                 }}
-                    onPress={() => navigation.goBack()}
+                    // onPress={() => navigation.goBack()}
+                    onPress={() => navigation.replace("Main", {
+                        screen: 'Messages',
+                        params: {
+                            chatId
+                        }
+                    })}
                 >
                     <ChevronLeft />
                 </TouchableOpacity>
@@ -59,13 +125,27 @@ export const ChatScreen = ({ route }: any) => {
                 })}
             </View>
             <View style={{
-                marginTop: 20
+                marginTop: 20,
+                paddingBottom: 100
             }}>
-                <FlatList
-                    data={chat?.history}
-                    renderItem={(it) => <BubbleChat key={it.item._id} history={it.item} />}
-                    keyExtractor={(it) => it._id.toString()}
-                />
+                {historyMsg.length > 0 ?
+                    <FlatList
+                        data={historyMsg}
+                        renderItem={(it) => <BubbleChat key={it.item._id} history={it.item} />}
+                        showsVerticalScrollIndicator={false}
+                        // keyExtractor={(it) => it._id.toString()}
+                        ref={flatlistRef}
+                    />
+                    :
+                    <FlatList
+                        data={chat?.history}
+                        renderItem={(it) => <BubbleChat key={it.item._id} history={it.item} />}
+                        showsVerticalScrollIndicator={false}
+                        keyExtractor={(it) => it._id.toString()}
+                        ref={flatlistRef}
+                    />
+                }
+
             </View>
             <View style={{
                 position: 'absolute',
@@ -81,8 +161,8 @@ export const ChatScreen = ({ route }: any) => {
                 flexDirection: 'row',
                 alignItems: 'center',
             }}>
-                <TextInput style={{ flex: 1 }} placeholder="Type your message here" />
-                <TouchableOpacity>
+                <TextInput style={{ flex: 1 }} placeholder="Type your message here" value={inputMsg} onChangeText={(v) => setInputMsg(v)} />
+                <TouchableOpacity onPress={handleSendMessage}>
                     <Send size={24} />
                 </TouchableOpacity>
             </View>
