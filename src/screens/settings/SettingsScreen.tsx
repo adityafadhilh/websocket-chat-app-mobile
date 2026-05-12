@@ -10,6 +10,7 @@ import { useUsers } from "../../hooks/useUsers"
 import { useCurrentUser } from "../../hooks/useCurrentUser"
 import { FriendItemRow } from "../../components/FriendItemRow"
 import { User } from "../../types/user.type"
+import { RootStackParamList } from "../../navigation/navigation.type"
 
 export const SettingsScreen = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
