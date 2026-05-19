@@ -27,9 +27,23 @@ export const useChats = () => {
             console.log('chatById');
             const res = await apiRequest.get('/chats/' + chatId);
             console.log(res);
-             if (res && res.data && res.data.chat) {
+            if (res && res.data && res.data.chat) {
                 setChat(res.data.chat);
             }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const getChatByMembers = async (members: string[]) => {
+        try {
+            console.log(members);
+            const res  = await apiRequest.post('/chats/by/members', {
+                members
+            });
+            if (res && res.data && res.data.chat) {
+                setChat(res.data.chat[0]);
+            };
         } catch (error) {
             console.log(error);
         }
@@ -38,6 +52,7 @@ export const useChats = () => {
     return {
         getChats,
         getChatById,
+        getChatByMembers,
         chats,
         chat
     };

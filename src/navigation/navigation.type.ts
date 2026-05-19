@@ -2,7 +2,7 @@ import { NavigatorScreenParams } from "@react-navigation/native";
 
 export type RootStackParamList = {
     Main: NavigatorScreenParams<TabParamList>;
-    Chat: {chatId: string};
+    Chat: {chatId?: string; members?: string[]};
     Settings: undefined
 };
 

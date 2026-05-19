@@ -15,7 +15,8 @@ import { RootStackParamList } from "../../navigation/navigation.type";
 
 export const ChatScreen = ({ route }: any) => {
     const {
-        chatId
+        chatId,
+        members
     } = route.params;
 
     const {
@@ -28,6 +29,7 @@ export const ChatScreen = ({ route }: any) => {
     const {
         chat,
         getChatById,
+        getChatByMembers
     } = useChats();
     const {
         users,
@@ -43,10 +45,20 @@ export const ChatScreen = ({ route }: any) => {
         console.log(chat?.members);
         if (chat?.members) {
             socket.io.opts.query = {
+                current: currentUser._id,
                 members: chat?.members
             };
 
             socket.connect();
+        } else {
+            if (members) {
+                socket.io.opts.query = {
+                    current: currentUser._id,
+                    members
+                };
+
+                socket.connect();
+            }
         }
     };
 
@@ -68,6 +80,13 @@ export const ChatScreen = ({ route }: any) => {
             console.log('chatId: ' + chatId);
             getChatById(chatId);
             getUsers()
+        } else if (members) {
+            console.log('by members: ' + members);
+            getChatByMembers(members);
+            getUsers()
+            if (!chat) {
+                handleSocket()
+            }
         }
 
         socket.on("chat message", (data) => {
@@ -90,7 +109,7 @@ export const ChatScreen = ({ route }: any) => {
     }, [chat]);
 
     useEffect(() => {
-        flatlistRef.current?.scrollToEnd({ animated: true});
+        flatlistRef.current?.scrollToEnd({ animated: true });
     }, [historyMsg])
 
     return (
@@ -119,7 +138,7 @@ export const ChatScreen = ({ route }: any) => {
                 >
                     <ChevronLeft />
                 </TouchableOpacity>
-                {chat?.members.map((member) => {
+                {chat && chat?.members && chat?.members.map((member) => {
                     let user = users.find((it) => it._id == member);
                     return <MemberItem key={user?._id} user={user} />
                 })}
@@ -128,7 +147,7 @@ export const ChatScreen = ({ route }: any) => {
                 marginTop: 20,
                 paddingBottom: 100
             }}>
-                {historyMsg.length > 0 ?
+                {historyMsg && historyMsg.length > 0 ?
                     <FlatList
                         data={historyMsg}
                         renderItem={(it) => <BubbleChat key={it.item._id} history={it.item} />}
